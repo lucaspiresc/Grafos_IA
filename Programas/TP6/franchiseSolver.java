@@ -37,9 +37,15 @@ public class franchiseSolver {
       
       for ( int i = 0; i <= maxCor; i++ ) {
          System.out.print( "\nFranqueado " + (i+1) + ": " );
+         int first = 0;
          for( vertice v : grafo ) {
             if( v.cor == i ) {
-               System.out.print( v.value + " " );
+                if( first == 0 ) {
+                    System.out.print( v.value );
+                    first++;
+                } else {
+               System.out.print( ", " + v.value );
+                }
             }
          }
       }
@@ -72,8 +78,8 @@ public class franchiseSolver {
       List<vertice> grafo;
       
       try {
-         //BufferedReader file = new BufferedReader(new InputStreamReader( System.in ));
-         BufferedReader file = new BufferedReader(new FileReader("grafo.in"));
+         BufferedReader file = new BufferedReader(new InputStreamReader( System.in ));
+         //BufferedReader file = new BufferedReader(new FileReader("grafo.in"));
          int tipo = Integer.parseInt( file.readLine( ) );
          int size = Integer.parseInt( file.readLine( ) );
       
@@ -113,12 +119,37 @@ public class franchiseSolver {
    public static void insereAresta( int verticeA, int verticeB, List<vertice> grafo ) {
    
       grafo.get(verticeA).addAresta( verticeB );
-      
+      grafo.get(verticeA).grau++;
       if( tipo == 0 ) {
          grafo.get(verticeB).addAresta( verticeA );
-      }
+         grafo.get(verticeB).grau++;
+        }
    }
    
+   public static vertice getMaior( List<vertice> grafo ) {
+        vertice resp = new vertice( -1 );
+        for( vertice v : grafo ) {
+            if( !v.pego ) {
+                if( v.grau >= resp.grau ) {
+                    resp = v;
+                }        
+            }
+        }
+        resp.pego = true;    
+        return resp;
+   }
+
+   public static int getGrauValido ( List<vertice> grafo, vertice v ) {
+       int resp = 0;
+       for( int i : v.arestas ) {
+           vertice tmp = grafo.get(i);
+           if( !tmp.deleted ) {
+               resp++;
+           }
+       }
+       return resp;
+   }
+
     /**
 	 * Algoritimo proposto em sala de aula para encontrar conjuntos independentes.
     * @param List<vertice> grafo - grafo a ser trabalhado.
@@ -127,11 +158,14 @@ public class franchiseSolver {
    public static List<vertice> cI ( List<vertice> grafo ) {
       List<vertice> cI = new ArrayList<vertice>();
       sobra = new ArrayList<vertice>();
-      for( vertice v : grafo ) {
-         if( !v.deleted ) {
+      for( int i =0; i < grafo.size(); i++ ) {
+        vertice v = getMaior(grafo);
+        if( !v.deleted ) {
             cI.add(v);
             remover( grafo, v );
-         }
+            i = i + getGrauValido(grafo, v);
+            i += 1;
+        }
       }
       
       return cI;
@@ -150,6 +184,7 @@ public class franchiseSolver {
       for( int i : v.arestas ) {
          vertice tmp = grafo.get(i);
          tmp.deleted = true;
+         tmp.pego = true;
          if( !sobra.contains(tmp) ) {
             sobra.add(tmp);
          }
@@ -236,22 +271,20 @@ public class franchiseSolver {
 class vertice {
 
    int value;
+   int grau;
    List<Integer> arestas;
    int cor;
-   char corDFS;
    boolean deleted; //indica se o vertice foi deletado
-   int componente;
-   boolean visited;
-   
+   boolean pego; //indica se o vertice ja foi pego no algoritimo do conjunto indenpendente
+
    public vertice( int x ) {
       this.value = x;
+      this.grau = 0;
       this.arestas = new ArrayList<Integer>();
       this.cor = -1;
-      this.corDFS = 'B';
-      this.componente = -1;
       this.deleted = false;
-      this.visited = false;
-   }
+      this.pego = false;
+    }
    
    public void addAresta( int x ) {
       arestas.add(x);
