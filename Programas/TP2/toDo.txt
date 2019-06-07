@@ -1,6 +1,0 @@
--> Estado inicial
--> Todas as modificacoes(verificar quais sao possiveis).
--> Achou o certo? (implementado).
--> Se nao, repete p/ todas as modificacoes feitas
--> Achou o certo?
- ...
