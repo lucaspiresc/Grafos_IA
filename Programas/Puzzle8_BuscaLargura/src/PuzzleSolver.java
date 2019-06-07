@@ -29,6 +29,8 @@ public class PuzzleSolver {
 
                 grafo.add(raiz);
 
+                List<Vertice> grafo2 = gerarGrafoCompleto(instanciaInicial);
+
                 if (instanciaInicial.resolvivel()) {
                     buscaLargura(grafo);
                 } else {
@@ -40,6 +42,60 @@ public class PuzzleSolver {
             }
         } catch (Exception e ) {
             System.out.println("Erro ao resolver o Puzzle: " + e.getMessage());
+        }
+    }
+
+    /*
+     * Metodo que faz a busca em largura, ao mesmo tempo que preenche o grafo.
+     * @param List<> grafo - grafo na qual sera realizada a busca.
+     */
+    public static List<Vertice> gerarGrafoCompleto (  Puzzle instanciaInicial ) {
+        try {
+            Vertice raiz = new Vertice(instanciaInicial);
+            List<Vertice> grafo = new ArrayList<>();
+            grafo.add(raiz);
+
+            ArvoreBinaria pesquisa = new ArvoreBinaria( ); //arvore onde vamos fazer as validacoes para inserir os vertices.
+            Vertice origem = grafo.get(0);
+            pesquisa.inserir( origem.puzzleAtual.puzzle );
+
+            origem.cor = IndicadorCores.CINZA;
+            origem.distancia = 0;
+
+            List<Vertice> tmp = new ArrayList<>();
+            tmp.add( 0, origem );
+
+            while( tmp.size() > 0 ) {
+                //desenfileira:
+                Vertice u = tmp.get(0);
+                tmp.remove(0);
+
+                //gera os filhos, e insere no grafo:
+                List<Puzzle> entradas = u.puzzleAtual.fazerTrocas( );
+
+                for( Puzzle x : entradas ) {
+                    //Valida a instancia atual do puzzle a entrar no grafo:
+                    if( !pesquisa.pesquisar( x.puzzle ) ) {
+
+                        u.addAresta( x ); //aresta da instancia atual.
+                        Vertice adiciona = new Vertice( x ); //novo vertice.
+
+                        if( adiciona.cor.equals( IndicadorCores.BRANCO ) ){
+                            adiciona.cor = IndicadorCores.CINZA;
+                            adiciona.distancia = u.distancia+1;
+                            adiciona.pai = u;
+
+                            grafo.add( adiciona );
+                            pesquisa.inserir( adiciona.puzzleAtual.puzzle );
+                            tmp.add( adiciona );
+                        }
+                    }
+                }
+                u.cor = IndicadorCores.PRETO;
+            }
+            return grafo;
+        } catch ( Exception e ) {
+            return null;
         }
     }
 
