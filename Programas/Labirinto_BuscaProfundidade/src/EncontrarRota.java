@@ -4,6 +4,9 @@ import Labirinto.PontoLabirinto;
 
 import java.util.LinkedList;
 
+/**
+ * Classe que vai realizar a busca em profundidade
+ */
 public class EncontrarRota {
 
     private int profundidadeMinima = 9999999;
@@ -108,6 +111,10 @@ public class EncontrarRota {
         }
     }
 
+    /**
+     * Classe que sera utilizada para armazenar os pontos do caminho da melhor rota
+     * da busca em profundidade
+     */
     class Ponto{
         int x;
         int y;
