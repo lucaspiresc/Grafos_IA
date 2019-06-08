@@ -14,11 +14,8 @@ public class EncontrarRota {
     private int fimY;
     private PontoLabirinto[][] bestMap;
 
-    private LinkedList tempList = new LinkedList();
-    private LinkedList bestList = new LinkedList();
-
-    private int routeCounter = 0;
-    private int recurseCounter = 0;
+    private LinkedList listaTmp = new LinkedList();
+    private LinkedList melhorCaminho = new LinkedList();
 
     public EncontrarRota(Labirinto labirinto, int inicioX, int inicioY, int fimX, int fimY){
 
@@ -42,15 +39,14 @@ public class EncontrarRota {
         int nextX,nextY;
 
         if (x == fimX && y == fimY){
-            routeCounter++;
 
             if (pronfundidade < profundidadeMinima){
                 profundidadeMinima = pronfundidade;
                 bestMap = labirinto.labirinto;
 
-                bestList.clear();
+                melhorCaminho.clear();
 
-                bestList.addAll(tempList);
+                melhorCaminho.addAll(listaTmp);
             }
             return;
         }
@@ -65,13 +61,12 @@ public class EncontrarRota {
 
             if (!labirinto.labirinto[nextX][nextY].estaOcupado()){
 
-                tempList.add(new Point(nextX,nextY));
+                listaTmp.add(new Ponto(nextX,nextY));
                 labirinto.alterarStatusMapa(nextX,nextY,StatusPonto.VISITADO);
 
                 buscaProfundidade(nextX,nextY,pronfundidade+1);
 
-                recurseCounter++;
-                tempList.removeLast();
+                listaTmp.removeLast();
                 labirinto.alterarStatusMapa(nextX,nextY,StatusPonto.LIVRE);
             }
 
@@ -90,10 +85,10 @@ public class EncontrarRota {
 
         System.out.println("Melhor rota: ");
 
-        while (!bestList.isEmpty()){
-            Point point = (Point) bestList.poll();
-            System.out.print("("+point.x+","+point.y+") ");
-            bestMap[point.x][point.y].alteraStatus(StatusPonto.VISITADO);
+        while (!melhorCaminho.isEmpty()){
+            Ponto ponto = (Ponto) melhorCaminho.poll();
+            System.out.print("("+ponto.x+","+ponto.y+") ");
+            bestMap[ponto.x][ponto.y].alteraStatus(StatusPonto.VISITADO);
         }
 
         System.out.println();
@@ -103,7 +98,7 @@ public class EncontrarRota {
                 if (bestMap[i][j].getStatus().equals(StatusPonto.VISITADO)){
                     System.out.print("*"+"\t");
                 }else if (bestMap[i][j].getStatus().equals(StatusPonto.PAREDE)){
-                    System.out.print("|"+"\t");
+                    System.out.print("X"+"\t");
                 }else {
                     System.out.print(" "+"\t");
                 }
@@ -113,17 +108,13 @@ public class EncontrarRota {
         }
     }
 
-    class Point{
+    class Ponto{
         int x;
         int y;
 
-        public Point(int x,int y){
+        public Ponto(int x,int y){
             this.x = x;
             this.y = y;
-        }
-
-        public String toString(){
-            return "("+ x +", " +y +")";
         }
     }
 
