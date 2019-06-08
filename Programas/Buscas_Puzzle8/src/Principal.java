@@ -35,7 +35,7 @@ public class Principal {
                     new AEstrela().buscaAEstrela(instanciaInicial);
                     fimBusca = Calendar.getInstance().getTime();
 
-                    System.out.println("\n Tempo de exeucao da busca A*: " +(fimBusca.getTime() - inicioBusca.getTime())+ "ms\n");
+                    System.out.println("\n Tempo de execucao da busca A*: " +(fimBusca.getTime() - inicioBusca.getTime())+ "ms\n");
                     break;
                 case "L":
                     System.out.println("EXECUTANDO BUSCA EM LARGURA");
@@ -43,7 +43,7 @@ public class Principal {
                     new BuscaLargura().buscaLargura(instanciaInicial);
                     fimBusca = Calendar.getInstance().getTime();
 
-                    System.out.println("\n Tempo de exeucao da busca em largura: " +(fimBusca.getTime() - inicioBusca.getTime())+ "ms\n");
+                    System.out.println("\n Tempo de execucao da busca em largura: " +(fimBusca.getTime() - inicioBusca.getTime())+ "ms\n");
                     break;
                 case "P":
                     System.out.println("EXECUTANDO BUSCA EM PROFUNDIDADE");
@@ -51,7 +51,7 @@ public class Principal {
                     new BuscaProfundidade().buscaProfundidade(instanciaInicial);
                     fimBusca = Calendar.getInstance().getTime();
 
-                    System.out.println("\n Tempo de exeucao da busca em profundidade: " +(fimBusca.getTime() - inicioBusca.getTime())+ "ms\n");
+                    System.out.println("\n Tempo de execucao da busca em profundidade: " +(fimBusca.getTime() - inicioBusca.getTime())+ "ms\n");
                     break;
             }
 
