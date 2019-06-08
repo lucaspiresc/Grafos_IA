@@ -19,14 +19,31 @@ public class Principal {
 
         int[] instanciaInicial = montarInstacia(reader.nextLine().split(" "));
 
-        System.out.println("EXECUTANDO A*");
-        new AEstrela().buscaAEstrela(instanciaInicial);
+        System.out.println("Digte A para rodar a busca com A*, P para rodar a busca em profundade, L para rodar a busca em largura\n" +
+                            "Qualquer outra coisa parar sair");
+        String metodo = reader.nextLine();
+        while (metodo.equals("A") || metodo.equals("P") || metodo.equals("L")){
+            switch (metodo){
+                case "A":
+                    System.out.println("EXECUTANDO A*");
+                    new AEstrela().buscaAEstrela(instanciaInicial);
+                    break;
+                case "L":
+                    System.out.println("EXECUTANDO BUSCA EM LARGURA");
+                    new BuscaLargura().buscaLargura(instanciaInicial);
+                    break;
+                case "P":
+                    System.out.println("EXECUTANDO BUSCA EM PROFUNDIDADE");
+                    new BuscaProfundidade().buscaProfundidade(instanciaInicial);
+                    break;
+            }
+            System.out.println();
+            System.out.println();
 
-        System.out.println("EXECUTANDO BUSCA EM LARGURA");
-        new BuscaLargura().buscaLargura(instanciaInicial);
-
-        System.out.println("EXECUTANDO BUSCA EM PROFUNDIDADE");
-        new BuscaProfundidade().buscaProfundidade(instanciaInicial);
+            System.out.println("Digte A para rodar a busca com A*, P para rodar a busca em profundade, L para rodar a busca em largura\n" +
+                    "Qualquer outra coisa parar sair");
+            metodo = reader.nextLine();
+        }
     }
 
 

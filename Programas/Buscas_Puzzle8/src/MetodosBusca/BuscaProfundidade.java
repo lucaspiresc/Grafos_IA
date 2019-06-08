@@ -57,7 +57,7 @@ public class BuscaProfundidade {
                  * Itera sobre os sucessores desta instacia, verifica se ja foram avalizados,
                  * e caso nao tenham sido, adiciona-os na fila
                  */
-                for (int i = 0; i < sucessores.size(); i++)
+                for (int i = sucessores.size()-1; i >= 0; i--)
                 {
                     // second parameter here adds the cost of the new node to
                     // the current cost total in the SearchNode
