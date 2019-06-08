@@ -33,10 +33,10 @@ public class EncontrarRota {
 
     private void buscaProfundidade(int x,int y,int pronfundidade){
         int[][] next = {
-                {0,1},//Right
-                {1,0},//Down
-                {0,-1},//Left
-                {-1,0}//Up
+                {0,1},//Direita
+                {1,0},//Baixo
+                {0,-1},//Esquerda
+                {-1,0}//Cima
         };
 
         int nextX,nextY;
