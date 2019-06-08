@@ -40,21 +40,33 @@ public class InstanciaPuzzle {
      * Distancia de Manhattan para esta instancia
      */
     private void distanciaManhattan() {
-        int indice = -1;
+        //variavel que vai garantir que percorremos o vetor linearmente,
+        //indepente do metodo, que considera linhas e colunas
+        int indice = 0;
 
-        for (int x = 0; x < 3; x++) {
-            for (int y = 0; y < 3; y++) {
-                indice++;
+        for (int i = 0; i < 3;i++) {
+            for (int j = 0; j < 3; j++) {
 
-                int val = (tabuleiro[indice] - 1);
+                //o indice correto de um valor do puzzle no vetor, com a execao do buraco, que sera tratada depois,
+                //deve ser o valor - 1, ou seja:
+                // o valor 1 deve ficar na posicao 0, o 2 deve ficar na posicao 2, e assim por diante
+                int posicaoCerta = tabuleiro[indice] - 1;
 
-                if (val != -1) {
-                    int horiz = val % 3;
-
-                    int vert = val / 3;
-
-                    distanciaManhattan += Math.abs(vert - (x)) + Math.abs(horiz - (y));
+                //Se o valor da posicao certo for -1, e porque estamos olhando o buraco,
+                //representado pelo 0, que deve ficar na ultima posicao do vetor, ou seja,
+                //a posicao 8
+                if(posicaoCerta == -1){
+                    posicaoCerta = 8;
                 }
+
+                //fazendo os calculos para obter a linha e a coluna do
+                //valor atual no plano
+                int posicaoCertaVertical = posicaoCerta / 3;
+                int posicaoCertaHorizontal= posicaoCerta % 3;
+
+                distanciaManhattan += Math.abs(posicaoCertaVertical - i ) + Math.abs(posicaoCertaHorizontal - j);
+
+                indice++;
             }
         }
     }
