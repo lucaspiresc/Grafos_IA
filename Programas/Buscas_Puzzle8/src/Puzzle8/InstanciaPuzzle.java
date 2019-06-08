@@ -7,8 +7,6 @@ public class InstanciaPuzzle {
 
     private final int tamanhoPuzzle = 9;
 
-    public int blocosForaDoLugar = 0;
-
     public int distanciaManhattan = 0;
 
     public final int[] puzzleFinal = new int[]
@@ -19,8 +17,8 @@ public class InstanciaPuzzle {
     /*
      * Construtor da classe
      */
-    public InstanciaPuzzle(int[] board) {
-        tabuleiro = board;
+    public InstanciaPuzzle(int[] tabuleiro) {
+        this.tabuleiro = tabuleiro;
         distanciaManhattan();
     }
 
@@ -28,12 +26,14 @@ public class InstanciaPuzzle {
      * Obtem custo para chegar nesta instancia
      */
     public double obterCusto() {
-        int cost = 0;
+        int custo = 0;
         for (int i = 0; i < tabuleiro.length; i++) {
-            int puzzleFinalNumber = puzzleFinal[i] == 0 ? 9 : puzzleFinal[i];
-            cost += Math.abs(tabuleiro[i] - puzzleFinalNumber);
+            int numeroFinal = puzzleFinal[i] == 0 ? 9 : puzzleFinal[i];
+            //O custo e a soma do valor absoluto do valor de uma peca em uma posica,
+            // menos o valor da peca que DEVERIA estar naquela posicao
+            custo += Math.abs(tabuleiro[i] - numeroFinal);
         }
-        return cost;
+        return custo;
     }
 
     /*
@@ -92,7 +92,7 @@ public class InstanciaPuzzle {
         return clone;
     }
 
-    /**
+    /*
      * Verifica as direcoes possiveis para fazer os movimentos, e chama o metodo
      * que faz este movimento, quando possivel
      */
@@ -145,14 +145,14 @@ public class InstanciaPuzzle {
         return new InstanciaPuzzle(clone);
     }
 
-    /**
+    /*
      * Verifica se esta instancia e a instancia final do puzzle8
      */
     public boolean isPuzzleFinal() {
         return Arrays.equals(tabuleiro, puzzleFinal);
     }
 
-    /**
+    /*
      * Imprime o estado atual
      */
     public void mostrarPuzzle() {
@@ -167,7 +167,7 @@ public class InstanciaPuzzle {
 
     }
 
-    /**
+    /*
      * Compara duas instacias do puzzle
      */
     public boolean equals(InstanciaPuzzle s) {

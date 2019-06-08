@@ -2,6 +2,8 @@ import MetodosBusca.AEstrela;
 import MetodosBusca.BuscaLargura;
 import MetodosBusca.BuscaProfundidade;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Principal {
@@ -19,6 +21,9 @@ public class Principal {
 
         int[] instanciaInicial = montarInstacia(reader.nextLine().split(" "));
 
+        Date inicioBusca; //Variaveis de tempo que serao usadas para
+        Date fimBusca;
+
         System.out.println("Digte A para rodar a busca com A*, P para rodar a busca em profundade, L para rodar a busca em largura\n" +
                             "Qualquer outra coisa parar sair");
         String metodo = reader.nextLine();
@@ -26,19 +31,29 @@ public class Principal {
             switch (metodo){
                 case "A":
                     System.out.println("EXECUTANDO A*");
+                    inicioBusca = Calendar.getInstance().getTime();
                     new AEstrela().buscaAEstrela(instanciaInicial);
+                    fimBusca = Calendar.getInstance().getTime();
+
+                    System.out.println("\n Tempo de exeucao da busca A*: " +(fimBusca.getTime() - inicioBusca.getTime())+ "ms\n");
                     break;
                 case "L":
                     System.out.println("EXECUTANDO BUSCA EM LARGURA");
+                    inicioBusca = Calendar.getInstance().getTime();
                     new BuscaLargura().buscaLargura(instanciaInicial);
+                    fimBusca = Calendar.getInstance().getTime();
+
+                    System.out.println("\n Tempo de exeucao da busca em largura: " +(fimBusca.getTime() - inicioBusca.getTime())+ "ms\n");
                     break;
                 case "P":
                     System.out.println("EXECUTANDO BUSCA EM PROFUNDIDADE");
+                    inicioBusca = Calendar.getInstance().getTime();
                     new BuscaProfundidade().buscaProfundidade(instanciaInicial);
+                    fimBusca = Calendar.getInstance().getTime();
+
+                    System.out.println("\n Tempo de exeucao da busca em profundidade: " +(fimBusca.getTime() - inicioBusca.getTime())+ "ms\n");
                     break;
             }
-            System.out.println();
-            System.out.println();
 
             System.out.println("Digte A para rodar a busca com A*, P para rodar a busca em profundade, L para rodar a busca em largura\n" +
                     "Qualquer outra coisa parar sair");

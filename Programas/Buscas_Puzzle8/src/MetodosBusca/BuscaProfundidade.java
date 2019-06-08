@@ -37,7 +37,7 @@ public class BuscaProfundidade {
         return avaliado;
     }
 
-    /**
+    /*
      * Realiza a busca em profundidade
      */
     public static void fazerBusca(Stack<ArvoreBusca> s)

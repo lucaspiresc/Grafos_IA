@@ -9,7 +9,7 @@ public class ArvoreBusca {
     public double hCusto; // custo heuristica
     public double fCusto; // f(n) custo
 
-    /**
+    /*
      * Constructor da classe
      */
     public ArvoreBusca(InstanciaPuzzle s) {
@@ -20,7 +20,7 @@ public class ArvoreBusca {
         fCusto = 0;
     }
 
-    /**
+    /*
      * Construtor da classe com pai, e custos
      */
     public ArvoreBusca(ArvoreBusca pai, InstanciaPuzzle s, double c, double h) {
