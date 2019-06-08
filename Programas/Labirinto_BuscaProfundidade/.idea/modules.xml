@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/SearchAlgorithm.iml" filepath="$PROJECT_DIR$/SearchAlgorithm.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Labirinto_BuscaProfundidade.iml" filepath="$PROJECT_DIR$/Labirinto_BuscaProfundidade.iml" />
     </modules>
   </component>
 </project>
