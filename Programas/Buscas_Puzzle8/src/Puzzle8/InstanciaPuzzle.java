@@ -53,19 +53,16 @@ public class InstanciaPuzzle {
                 int posicaoCerta = tabuleiro[indice] - 1;
 
                 //Se o valor da posicao certo for -1, e porque estamos olhando o buraco,
-                //representado pelo 0, que deve ficar na ultima posicao do vetor, ou seja,
-                //a posicao 8
-                if(posicaoCerta == -1){
-                    posicaoCerta = 8;
+                //como o buraco nao pode ser movido diretamente(so muda de lugar quando movemos uma peca),
+                //nao iremos considera-lo no calcula da distancia
+                if(posicaoCerta != -1){
+                    //fazendo os calculos para obter a linha e a coluna do
+                    //valor atual no plano
+                    int posicaoCertaVertical = posicaoCerta / 3;
+                    int posicaoCertaHorizontal= posicaoCerta % 3;
+
+                    distanciaManhattan += Math.abs(posicaoCertaVertical - i ) + Math.abs(posicaoCertaHorizontal - j);
                 }
-
-                //fazendo os calculos para obter a linha e a coluna do
-                //valor atual no plano
-                int posicaoCertaVertical = posicaoCerta / 3;
-                int posicaoCertaHorizontal= posicaoCerta % 3;
-
-                distanciaManhattan += Math.abs(posicaoCertaVertical - i ) + Math.abs(posicaoCertaHorizontal - j);
-
                 indice++;
             }
         }
