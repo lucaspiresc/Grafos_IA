@@ -22,7 +22,7 @@ public class Principal {
         int[] instanciaInicial = montarInstacia(reader.nextLine().split(" "));
 
         Date inicioBusca; //Variaveis de tempo que serao usadas para
-        Date fimBusca;
+        Date fimBusca;    //medir o tempo de execucao dos algoritimos
 
         System.out.println("Digte A para rodar a busca com A*, P para rodar a busca em profundade, L para rodar a busca em largura\n" +
                             "Qualquer outra coisa parar sair");

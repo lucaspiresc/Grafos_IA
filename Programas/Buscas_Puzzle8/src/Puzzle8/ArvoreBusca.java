@@ -10,7 +10,7 @@ public class ArvoreBusca {
     public double fCusto; // f(n) custo
 
     /*
-     * Constructor da classe
+     * Construtor da classe
      */
     public ArvoreBusca(InstanciaPuzzle s) {
         estadoAtual = s;

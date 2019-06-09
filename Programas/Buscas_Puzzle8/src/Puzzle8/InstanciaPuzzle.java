@@ -22,7 +22,7 @@ public class InstanciaPuzzle {
         distanciaManhattan();
     }
 
-    /**
+    /*
      * Obtem custo para chegar nesta instancia
      */
     public double obterCusto() {
@@ -69,7 +69,7 @@ public class InstanciaPuzzle {
     }
 
     /*
-     * Metodo que buscar o "buraco" do puzzle
+     * Metodo que buscar o "buraco", ou seja, a posicao vazia do puzzle
      */
     private int acharVazio() {
         int posVazio = -1;
@@ -100,30 +100,22 @@ public class InstanciaPuzzle {
         ArrayList<InstanciaPuzzle> sucessores = new ArrayList<InstanciaPuzzle>();
         int buraco = acharVazio();
 
-        /*
-         * Verifica se é possível mover uma peça a esqueda do buraco
-         */
+        // Verifica se é possível mover uma peça a esqueda do buraco/
         if (buraco != 0 && buraco != 3 && buraco != 6) {
             sucessores.add(trocaPosicao(buraco - 1, buraco));
         }
 
-        /*
-         * Verifica se é possível mover uma peça acima do buraco
-         */
+        // Verifica se é possível mover uma peça acima do buraco
         if (buraco != 6 && buraco != 7 && buraco != 8) {
             sucessores.add(trocaPosicao(buraco + 3, buraco));
         }
 
-        /*
-         * Verifica se é possível mover uma peça abaixo do buraco
-         */
+        // Verifica se é possível mover uma peça abaixo do buraco
         if (buraco != 0 && buraco != 1 && buraco != 2) {
             sucessores.add(trocaPosicao(buraco - 3, buraco));
         }
 
-        /*
-         * Verifica se é possível mover uma peça a direita do buraco
-         */
+        // Verifica se é possível mover uma peça a direita do buraco
         if (buraco != 2 && buraco != 5 && buraco != 8) {
             sucessores.add(trocaPosicao(buraco + 1, buraco));
         }
@@ -156,14 +148,11 @@ public class InstanciaPuzzle {
      * Imprime o estado atual
      */
     public void mostrarPuzzle() {
-        System.out.println(tabuleiro[6] + " | " + tabuleiro[7] + " | "
-                + tabuleiro[8]);
+        System.out.println(tabuleiro[0] + " | " + tabuleiro[1] + " | " + tabuleiro[2]);
         System.out.println("---------");
-        System.out.println(tabuleiro[3] + " | " + tabuleiro[4] + " | "
-                + tabuleiro[5]);
+        System.out.println(tabuleiro[3] + " | " + tabuleiro[4] + " | " + tabuleiro[5]);
         System.out.println("---------");
-        System.out.println(tabuleiro[0] + " | " + tabuleiro[1] + " | "
-                + tabuleiro[2]);
+        System.out.println(tabuleiro[6] + " | " + tabuleiro[7] + " | " + tabuleiro[8]);
 
     }
 

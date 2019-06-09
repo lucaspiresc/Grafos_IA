@@ -22,10 +22,9 @@ public class AEstrela {
         {
             ArvoreBusca tmp = q.poll();
 
-            // if the tempNode is not the goal state
             if (!tmp.estadoAtual.isPuzzleFinal())
             {
-                // generate tempNode's immediate successors
+                //Gera os sucessores caso o no nao seja o final do puzzle
                 ArrayList<InstanciaPuzzle> sucessores = tmp.estadoAtual.gerarEstados();
 
                 ArrayList<ArvoreBusca> nosSuccessores = new ArrayList<ArvoreBusca>();
@@ -104,15 +103,15 @@ public class AEstrela {
 
     /*
      * Verifica se um estado ja foi avaliado anteriormente
-     * Returns true if it has, false if it hasn't.
+     * Retorna true se ele ja foi, false se nao
      */
     private static boolean jaAvaliado(ArvoreBusca n) {
         boolean avaliado = false;
-        ArvoreBusca checkNode = n;
+        ArvoreBusca noAvaliado = n;
 
         // Sobe na arvore verificando se ja temos o estado atual
         while (n.pai != null && !avaliado) {
-            if (n.pai.estadoAtual.equals(checkNode.estadoAtual)) {
+            if (n.pai.estadoAtual.equals(noAvaliado.estadoAtual)) {
                 avaliado = true;
             }
             n = n.pai;
