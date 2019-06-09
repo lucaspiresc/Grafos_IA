@@ -1,5 +1,6 @@
 package MetodosBusca;
 
+import ArvorePesquisa.ArvoreBinaria;
 import Puzzle8.ArvoreBusca;
 import Puzzle8.InstanciaPuzzle;
 
@@ -11,87 +12,86 @@ import java.util.Stack;
 public class BuscaLargura {
 
     public static void buscaLargura(int[] tabuleiro) {
-        ArvoreBusca raiz = new ArvoreBusca(new InstanciaPuzzle(tabuleiro));
-        Queue<ArvoreBusca> fila = new LinkedList<ArvoreBusca>();
+        try {
+            ArvoreBusca raiz = new ArvoreBusca(new InstanciaPuzzle(tabuleiro));
 
-        fila.add(raiz);
+            /*
+             * Arvore binaria sera utlizada para verificar se uma instancia do puzzle8
+             * já foi obtida. Isto será feito para melhorar a peformance e evitar que
+             * o algortimo fique preso em um loop(faz um movimento, e depois volta para o outro estado infinitamente)
+             */
+            ArvoreBinaria pesquisa = new ArvoreBinaria();
+            pesquisa.inserir(raiz.estadoAtual.tabuleiroString);
 
-        fazerBusca(fila);
-    }
+            Queue<ArvoreBusca> fila = new LinkedList<ArvoreBusca>();
 
-    /*
-     * Verifica se um estado ja foi avaliado anteriormente
-     * Retorna true se ele ja foi, false se nao
-     */
-    private static boolean jaAvaliado(ArvoreBusca n) {
-        boolean avaliado = false;
-        ArvoreBusca noAvaliado = n;
+            fila.add(raiz);
 
-        // Sobe na arvore verificando se ja temos o estado atual
-        while (n.pai != null && !avaliado) {
-            if (n.pai.estadoAtual.equals(noAvaliado.estadoAtual)) {
-                avaliado = true;
-            }
-            n = n.pai;
+            fazerBusca(fila, pesquisa);
+        } catch(Exception e){
+            System.out.println("Erro ao realizar a busca" + e.getMessage());
         }
-
-        return avaliado;
     }
 
     /*
      * Realiza a busca em largura
      */
-    public static void fazerBusca(Queue<ArvoreBusca> q) {
-        int contador = 1;
+    public static void fazerBusca(Queue<ArvoreBusca> q, ArvoreBinaria pesquisa) {
+        try {
+            int contador = 1;
 
-        while (!q.isEmpty())
-        {
-            ArvoreBusca tmp = q.poll();
+            while (!q.isEmpty()) {
+                ArvoreBusca tmp = q.poll();
 
-            if (!tmp.estadoAtual.isPuzzleFinal()) //
-            {
-                //Se o estado atual nao e o final, expande-o
-                ArrayList<InstanciaPuzzle> sucessores = tmp.estadoAtual.gerarEstados();
+                if (!tmp.estadoAtual.isPuzzleFinal()) //
+                {
+                    //Se o estado atual nao e o final, expande-o
+                    ArrayList<InstanciaPuzzle> sucessores = tmp.estadoAtual.gerarEstados();
 
-                /*
-                 * Itera sobre os sucessores desta instacia, verifica se ja foram avalizados,
-                 * e caso nao tenham sido, adiciona-os na fila
-                 */
-                for (int i = 0; i < sucessores.size(); i++) {
+                    /*
+                     * Itera sobre os sucessores desta instacia, verifica se ja foram avalizados,
+                     * e caso nao tenham sido, adiciona-os na fila
+                     */
+                    for (int i = 0; i < sucessores.size(); i++) {
 
-                    ArvoreBusca novoNo = new ArvoreBusca(tmp,sucessores.get(i), tmp.custo + sucessores.get(i).obterCusto(), 0);
+                        ArvoreBusca novoNo = new ArvoreBusca(tmp, sucessores.get(i), tmp.custo + sucessores.get(i).obterCusto(), 0);
 
-                    if (!jaAvaliado(novoNo)) {
-                        q.add(novoNo);
+                        if (!pesquisa.pesquisar(novoNo.estadoAtual.tabuleiroString)) {
+                            q.add(novoNo);
+                            pesquisa.inserir(novoNo.estadoAtual.tabuleiroString);
+                        }
                     }
-                }
-                contador++;
-            } else {
-                //Se achou o estado final, mostra-o
+                    contador++;
+                } else {
+                    //Se achou o estado final, mostra-o
 
-                //Empilha os estados ate chegar a raiz
-                Stack<ArvoreBusca> caminho = new Stack<ArvoreBusca>();
-                caminho.push(tmp);
-                tmp = tmp.pai;
-
-                while (tmp.pai != null) {
+                    //Empilha os estados ate chegar a raiz
+                    Stack<ArvoreBusca> caminho = new Stack<ArvoreBusca>();
                     caminho.push(tmp);
                     tmp = tmp.pai;
-                }
-                caminho.push(tmp);
 
-                int tamanhoPilha = caminho.size();
+                    while (tmp.pai != null) {
+                        caminho.push(tmp);
+                        tmp = tmp.pai;
+                    }
+                    caminho.push(tmp);
 
-                for (int i = 0; i < tamanhoPilha; i++) {
-                    tmp = caminho.pop();
-                    tmp.estadoAtual.mostrarPuzzle();
-                    System.out.println();
+                    int tamanhoPilha = caminho.size();
+
+                    for (int i = 0; i < tamanhoPilha; i++) {
+                        tmp = caminho.pop();
+                        tmp.estadoAtual.mostrarPuzzle();
+                        System.out.println();
+                    }
+                    System.out.println("Custo busca largura: " + tmp.custo);
+                    System.out.println("Numero de nos visitados: " + contador);
+                    return;
                 }
-                System.out.println("Custo busca largura: " + tmp.custo);
-                return;
             }
+            System.out.println("Nao foi encontrada uma solucao");
+        } catch (Exception e){
+            System.out.println("Erro ao realizar a busca" + e.getMessage());
         }
-        System.out.println("Nao foi encontrada uma solucao");
     }
 
 }
