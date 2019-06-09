@@ -99,6 +99,7 @@ public class AEstrela {
                     }
                     System.out.println("Custo A*: " + tmp.custo);
                     System.out.println("Numero de nos visitados: " + contador);
+                    System.out.println("Numero de movimentos para a solucao: " + (tamanhoPilha-1));
                     return;
                 }
             }
