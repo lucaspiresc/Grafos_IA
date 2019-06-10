@@ -13,7 +13,7 @@ public class AEstrela {
 
     public static void buscaAEstrela(int[] tabuleiro){
         try {
-            ArvoreBusca raiz = new ArvoreBusca(new InstanciaPuzzle(tabuleiro));
+            ArvoreBusca raiz = new ArvoreBusca(new InstanciaPuzzle(tabuleiro), 0);
             Queue<ArvoreBusca> q = new LinkedList<ArvoreBusca>();
 
             /*
@@ -44,7 +44,7 @@ public class AEstrela {
                     for (int i = 0; i < sucessores.size(); i++) {
                         ArvoreBusca novoNo;
 
-                        novoNo = new ArvoreBusca(tmp, sucessores.get(i), tmp.custo + sucessores.get(i).obterCusto(), sucessores.get(i).distanciaManhattan);
+                        novoNo = new ArvoreBusca(tmp, sucessores.get(i), tmp.custo + 1, sucessores.get(i).distanciaManhattan);
 
                         if (!pesquisa.pesquisar(novoNo.estadoAtual.tabuleiroString)) {
                             nosSuccessores.add(novoNo);
@@ -99,7 +99,6 @@ public class AEstrela {
                     }
                     System.out.println("Custo A*: " + tmp.custo);
                     System.out.println("Numero de nos visitados: " + contador);
-                    System.out.println("Numero de movimentos para a solucao: " + (tamanhoPilha-1));
                     return;
                 }
             }

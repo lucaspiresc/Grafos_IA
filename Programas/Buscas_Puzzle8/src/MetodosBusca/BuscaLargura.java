@@ -13,7 +13,7 @@ public class BuscaLargura {
 
     public static void buscaLargura(int[] tabuleiro) {
         try {
-            ArvoreBusca raiz = new ArvoreBusca(new InstanciaPuzzle(tabuleiro));
+            ArvoreBusca raiz = new ArvoreBusca(new InstanciaPuzzle(tabuleiro), 0);
 
             /*
              * Arvore binaria sera utlizada para verificar se uma instancia do puzzle8
@@ -54,7 +54,7 @@ public class BuscaLargura {
                      */
                     for (int i = 0; i < sucessores.size(); i++) {
 
-                        ArvoreBusca novoNo = new ArvoreBusca(tmp, sucessores.get(i), tmp.custo + sucessores.get(i).obterCusto(), 0);
+                        ArvoreBusca novoNo = new ArvoreBusca(tmp, sucessores.get(i), tmp.custo + 1, 0);
 
                         if (!pesquisa.pesquisar(novoNo.estadoAtual.tabuleiroString)) {
                             q.add(novoNo);
@@ -85,7 +85,6 @@ public class BuscaLargura {
                     }
                     System.out.println("Custo busca largura: " + tmp.custo);
                     System.out.println("Numero de nos visitados: " + contador);
-                    System.out.println("Numero de movimentos para a solucao: " + (tamanhoPilha-1));
                     return;
                 }
             }

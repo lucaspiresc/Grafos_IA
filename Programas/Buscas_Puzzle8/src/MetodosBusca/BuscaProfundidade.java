@@ -12,7 +12,7 @@ public class BuscaProfundidade {
     public static void buscaProfundidade(int[] tabuleiro)
     {
         try {
-            ArvoreBusca raiz = new ArvoreBusca(new InstanciaPuzzle(tabuleiro));
+            ArvoreBusca raiz = new ArvoreBusca(new InstanciaPuzzle(tabuleiro), 0);
             Stack<ArvoreBusca> pilha = new Stack<ArvoreBusca>();
 
             /*
@@ -51,7 +51,7 @@ public class BuscaProfundidade {
                      * e caso nao tenham sido, adiciona-os na fila
                      */
                     for (int i = sucessores.size() - 1; i >= 0; i--) {
-                        ArvoreBusca novoNo = new ArvoreBusca(tmp, sucessores.get(i), tmp.custo + sucessores.get(i).obterCusto(), 0);
+                        ArvoreBusca novoNo = new ArvoreBusca(tmp, sucessores.get(i), tmp.custo + 1, 0);
 
                         if (!pesquisa.pesquisar(novoNo.estadoAtual.tabuleiroString)) {
                             s.add(novoNo);
@@ -82,7 +82,6 @@ public class BuscaProfundidade {
                     }
                     System.out.println("Custo busca profundidade: " + tmp.custo);
                     System.out.println("Numero de nos visitados: " + contador);
-                    System.out.println("Numero de movimentos para a solucao: " + (tamanhoPilha-1));
                     return;
                 }
             }

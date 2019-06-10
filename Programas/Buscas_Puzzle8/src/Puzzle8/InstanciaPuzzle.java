@@ -26,20 +26,6 @@ public class InstanciaPuzzle {
     }
 
     /*
-     * Obtem custo para chegar nesta instancia
-     */
-    public double obterCusto() {
-        int custo = 0;
-        for (int i = 0; i < tabuleiro.length; i++) {
-            int numeroFinal = puzzleFinal[i] == 0 ? 9 : puzzleFinal[i];
-            //O custo e a soma do valor absoluto do valor de uma peca em uma posicao,
-            // menos o valor da peca que DEVERIA estar naquela posicao
-            custo += Math.abs(tabuleiro[i] - numeroFinal);
-        }
-        return custo;
-    }
-
-    /*
      * Distancia de Manhattan para esta instancia
      */
     private void distanciaManhattan() {

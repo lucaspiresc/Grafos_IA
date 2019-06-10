@@ -13,11 +13,22 @@ public class ArvoreBusca {
      * Construtor da classe
      */
     public ArvoreBusca(InstanciaPuzzle s) {
-        estadoAtual = s;
-        pai = null;
-        custo = 0;
-        hCusto = 0;
-        fCusto = 0;
+        this.estadoAtual = s;
+        this.pai = null;
+        this.custo = 0;
+        this.hCusto = 0;
+        this.fCusto = custo + hCusto;
+    }
+
+    /*
+     * Construtor da classe com custo
+     */
+    public ArvoreBusca(InstanciaPuzzle s, double c) {
+        this.estadoAtual = s;
+        this.pai = null;
+        this.custo = c;
+        this.hCusto = 0;
+        this.fCusto = custo + hCusto;
     }
 
     /*
