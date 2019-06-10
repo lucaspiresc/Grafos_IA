@@ -35,7 +35,7 @@ public class Principal {
                     new AEstrela().buscaAEstrela(instanciaInicial);
                     fimBusca = Calendar.getInstance().getTime();
 
-                    System.out.println("\nTempo de execucao da busca A*: " +(fimBusca.getTime() - inicioBusca.getTime())+ "ms\n");
+                    System.out.println("\n3Tempo de execucao da busca A*: " +(fimBusca.getTime() - inicioBusca.getTime())+ "ms\n");
                     break;
                 case "L":
                     System.out.println("EXECUTANDO BUSCA EM LARGURA");
